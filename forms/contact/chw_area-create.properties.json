@@ -1,0 +1,6 @@
+{
+  "context": {
+    "person": true,
+    "place": false
+  }
+}

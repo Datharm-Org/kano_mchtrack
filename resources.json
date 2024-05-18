@@ -1,0 +1,18 @@
+{
+  "icon-risk": "icon-healthcare-warning@2x.png",
+  "icon-treatment": "icon-healthcare-medicine@2x.png",
+  "icon-household": "icon-people-family.svg",
+  "icon-district-hospital": "icon-places-hospital.svg",
+  "icon-chw-area": "icon-places-CHW-area.svg",
+  "icon-settlement": "icon-community.svg",
+  "medic-person": "medic-person.svg",
+  "icon-home-delivery": "home-delivery.svg",
+  "icon-health-center": "icon-places-clinic.svg",
+  "icon-chw": "icon-people-CHW-crop.svg",
+  "icon-people-person": "icon-people-person.svg",
+  "icon-follow-up": "icon-followup-general.svg",
+  "icon-healthcare-diagnosis": "icon-healthcare-diagnosis.svg",
+  "icon-condition-fever": "icon-condition-fever.svg",
+  "icon-visit-reminder": "icon-cash-loan-payment-reminder.svg",
+  "icon-healthcare-warning": "icon-healthcare-warning.svg"
+}

@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>New Household</h:title>
+    <model>
+      <itext>
+        <translation lang="en">
+          <text id="/data/person/age_months:label">
+            <value>Age (Months)</value>
+          </text>
+          <text id="/data/person/age_weeks:label">
+            <value>Age (Weeks)</value>
+          </text>
+          <text id="/data/person/age_years:label">
+            <value>Age (Years)</value>
+          </text>
+          <text id="/data/person/file_no:label">
+            <value>File/Card Number</value>
+          </text>
+          <text id="/data/person/gender/female:label">
+            <value>Female</value>
+          </text>
+          <text id="/data/person/gender/male:label">
+            <value>Male</value>
+          </text>
+          <text id="/data/person/gender:label">
+            <value>Gender</value>
+          </text>
+          <text id="/data/person/is_zero_dose/false:label">
+            <value>No</value>
+          </text>
+          <text id="/data/person/is_zero_dose/true:label">
+            <value>Yes</value>
+          </text>
+          <text id="/data/person/is_zero_dose:label">
+            <value>Zero dose child</value>
+          </text>
+          <text id="/data/person/name:label">
+            <value>Names</value>
+          </text>
+          <text id="/data/person/own_phone/yes:label">
+            <value>Yes</value>
+          </text>
+          <text id="/data/person/own_phone:label">
+            <value>Has own phone?</value>
+          </text>
+          <text id="/data/person/phone:label">
+            <value>Phone Number</value>
+          </text>
+          <text id="/data/person/phone_alternate:label">
+            <value>Alternate Phone Number</value>
+          </text>
+        </translation>
+      </itext>
+      <instance>
+        <data delimiter="#" id="contact:person:create" prefix="J1!contact:person:create!" version="2024-03-19 9-48">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <user>
+              <contact_id/>
+              <facility_id/>
+              <name/>
+            </user>
+          </inputs>
+          <person>
+            <parent/>
+            <contact_type>person</contact_type>
+            <type/>
+            <name/>
+            <file_no/>
+            <gender/>
+            <age_years>0</age_years>
+            <age_months>0</age_months>
+            <age_weeks>0</age_weeks>
+            <age/>
+            <woman_or_child/>
+            <is_zero_dose/>
+            <own_phone/>
+            <phone/>
+            <phone_alternate/>
+            <meta tag="hidden">
+              <created_by/>
+              <created_by_person_uuid/>
+              <created_by_place_uuid/>
+            </meta>
+          </person>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </data>
+      </instance>
+      <bind nodeset="/data/inputs" relevant="false()"/>
+      <bind nodeset="/data/inputs/user/contact_id" type="string"/>
+      <bind nodeset="/data/inputs/user/facility_id" type="string"/>
+      <bind nodeset="/data/inputs/user/name" type="string"/>
+      <bind nodeset="/data/person/parent" type="string"/>
+      <bind nodeset="/data/person/contact_type" type="string"/>
+      <bind nodeset="/data/person/type" type="string"/>
+      <bind nodeset="/data/person/name" required="true()" type="string"/>
+      <bind nodeset="/data/person/file_no" required="true()" type="string"/>
+      <bind nodeset="/data/person/gender" required="true()" type="select1"/>
+      <bind constraint=". &lt;= 5 or ((. &gt; 5) and selected( /data/person/gender , 'female'))" jr:constraintMsg="Cannot register males above the age of 5" nodeset="/data/person/age_years" required="true()" type="int"/>
+      <bind nodeset="/data/person/age_months" relevant=" /data/person/age_years  &lt;= 9" required="true()" type="int"/>
+      <bind nodeset="/data/person/age_weeks" relevant=" /data/person/age_years  &lt;= 9" required="true()" type="int"/>
+      <bind calculate="concat( /data/person/age_years , ' years ',  /data/person/age_months , ' months ',  /data/person/age_weeks , ' weeks')" nodeset="/data/person/age" type="string"/>
+      <bind calculate="if(int( /data/person/age_years ) &gt; 9 and  /data/person/gender  = 'female', 'woman', 'child')" nodeset="/data/person/woman_or_child" type="string"/>
+      <bind nodeset="/data/person/is_zero_dose" relevant=" /data/person/woman_or_child  = 'child'" required="true()" type="select1"/>
+      <bind nodeset="/data/person/own_phone" relevant=" /data/person/woman_or_child  = 'woman'" type="select1"/>
+      <bind constraint="regex(., &quot;^0\d{10}$&quot;)" jr:constraintMsg="Please enter a valid local number, or example: 07012345678" nodeset="/data/person/phone" relevant="selected( /data/person/own_phone , 'yes')" required="true()" type="string"/>
+      <bind constraint="regex(., &quot;^0\d{10}$&quot;)" jr:constraintMsg="Please enter a valid local number, or example: 07012345678" nodeset="/data/person/phone_alternate" relevant="selected( /data/person/own_phone , 'yes')" type="string"/>
+      <bind calculate="../../../inputs/user/name" nodeset="/data/person/meta/created_by" type="string"/>
+      <bind calculate="../../../inputs/user/contact_id" nodeset="/data/person/meta/created_by_person_uuid" type="string"/>
+      <bind calculate="../../../inputs/user/facility_id" nodeset="/data/person/meta/created_by_place_uuid" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/data/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group ref="/data/inputs">
+      <group ref="/data/inputs/user">
+        <input ref="/data/inputs/user/contact_id"/>
+        <input ref="/data/inputs/user/facility_id"/>
+        <input ref="/data/inputs/user/name"/>
+      </group>
+    </group>
+    <group appearance="field-list" ref="/data/person">
+      <input ref="/data/person/name">
+        <label ref="jr:itext('/data/person/name:label')"/>
+      </input>
+      <input ref="/data/person/file_no">
+        <label ref="jr:itext('/data/person/file_no:label')"/>
+      </input>
+      <select1 ref="/data/person/gender">
+        <label ref="jr:itext('/data/person/gender:label')"/>
+        <item>
+          <label ref="jr:itext('/data/person/gender/male:label')"/>
+          <value>male</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/data/person/gender/female:label')"/>
+          <value>female</value>
+        </item>
+      </select1>
+      <input ref="/data/person/age_years">
+        <label ref="jr:itext('/data/person/age_years:label')"/>
+      </input>
+      <input ref="/data/person/age_months">
+        <label ref="jr:itext('/data/person/age_months:label')"/>
+      </input>
+      <input ref="/data/person/age_weeks">
+        <label ref="jr:itext('/data/person/age_weeks:label')"/>
+      </input>
+      <select1 ref="/data/person/is_zero_dose">
+        <label ref="jr:itext('/data/person/is_zero_dose:label')"/>
+        <item>
+          <label ref="jr:itext('/data/person/is_zero_dose/true:label')"/>
+          <value>true</value>
+        </item>
+        <item>
+          <label ref="jr:itext('/data/person/is_zero_dose/false:label')"/>
+          <value>false</value>
+        </item>
+      </select1>
+      <select1 ref="/data/person/own_phone">
+        <label ref="jr:itext('/data/person/own_phone:label')"/>
+        <item>
+          <label ref="jr:itext('/data/person/own_phone/yes:label')"/>
+          <value>yes</value>
+        </item>
+      </select1>
+      <input ref="/data/person/phone">
+        <label ref="jr:itext('/data/person/phone:label')"/>
+      </input>
+      <input ref="/data/person/phone_alternate">
+        <label ref="jr:itext('/data/person/phone_alternate:label')"/>
+      </input>
+      <group appearance="hidden" ref="/data/person/meta"/>
+    </group>
+  </h:body>
+</h:html>

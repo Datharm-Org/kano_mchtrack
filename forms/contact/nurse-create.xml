@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>New Nurse</h:title>
+    <model>
+      <itext>
+        <translation lang="en">
+          <text id="/data/nurse/name:label">
+            <value>Names</value>
+          </text>
+        </translation>
+      </itext>
+      <instance>
+        <data delimiter="#" id="contact:nurse:create" prefix="J1!contact:nurse:create!" version="2023-11-13 12-58">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <user>
+              <contact_id/>
+              <facility_id/>
+              <name/>
+            </user>
+          </inputs>
+          <nurse>
+            <parent/>
+            <type>household</type>
+            <name/>
+            <meta tag="hidden">
+              <created_by/>
+              <created_by_person_uuid/>
+              <created_by_place_uuid/>
+            </meta>
+          </nurse>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </data>
+      </instance>
+      <bind nodeset="/data/inputs" relevant="false()"/>
+      <bind nodeset="/data/inputs/user/contact_id" type="string"/>
+      <bind nodeset="/data/inputs/user/facility_id" type="string"/>
+      <bind nodeset="/data/inputs/user/name" type="string"/>
+      <bind nodeset="/data/nurse/parent" type="string"/>
+      <bind nodeset="/data/nurse/type" type="string"/>
+      <bind nodeset="/data/nurse/name" required="true()" type="string"/>
+      <bind calculate="../../../inputs/user/name" nodeset="/data/nurse/meta/created_by" type="string"/>
+      <bind calculate="../../../inputs/user/contact_id" nodeset="/data/nurse/meta/created_by_person_uuid" type="string"/>
+      <bind calculate="../../../inputs/user/facility_id" nodeset="/data/nurse/meta/created_by_place_uuid" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/data/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group ref="/data/inputs">
+      <group ref="/data/inputs/user">
+        <input ref="/data/inputs/user/contact_id"/>
+        <input ref="/data/inputs/user/facility_id"/>
+        <input ref="/data/inputs/user/name"/>
+      </group>
+    </group>
+    <group appearance="field-list" ref="/data/nurse">
+      <input ref="/data/nurse/name">
+        <label ref="jr:itext('/data/nurse/name:label')"/>
+      </input>
+      <group appearance="hidden" ref="/data/nurse/meta"/>
+    </group>
+  </h:body>
+</h:html>

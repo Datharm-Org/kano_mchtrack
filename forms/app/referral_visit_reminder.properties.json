@@ -1,0 +1,12 @@
+{
+  "icon": "icon-visit-reminder",
+  "context": {
+    "person": true,
+    "place": false,
+    "expression": "!contact && user.contact_type === 'chw'"
+  },
+  "hidden_fields": [
+    "report.referral_for_care.patient_id",
+    "patient_id"
+  ]
+}

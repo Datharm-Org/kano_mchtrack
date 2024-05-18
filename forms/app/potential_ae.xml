@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Potential Adverse Effect</h:title>
+    <model>
+      <instance>
+        <r delimiter="#" id="potential_ae" prefix="J1!potential_ae!" version="2020-03-06 00:00:00">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <source>user</source>
+            <source_id/>
+            <contact>
+              <_id/>
+              <name/>
+              <phone/>
+            </contact>
+          </inputs>
+          <patient_name/>
+          <patient_id tag="hidden"/>
+          <phone/>
+          <form tag="hidden">
+            <symptoms/>
+            <other_symptoms/>
+            <additional_notes/>
+          </form>
+          <symptoms_given/>
+          <other_symptoms/>
+          <additional_notes/>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </r>
+      </instance>
+      <instance id="contact-summary"/>
+      <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
+      <bind nodeset="/r/inputs/source" type="string"/>
+      <bind nodeset="/r/inputs/source_id" type="string"/>
+      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/name" type="string"/>
+      <bind nodeset="/r/inputs/contact/phone" type="string"/>
+      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
+      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
+      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
+      <bind nodeset="/r/form/symptoms" required="true()" type="select"/>
+      <bind nodeset="/r/form/other_symptoms" relevant="selected( /r/form/symptoms , 'others')" type="string"/>
+      <bind nodeset="/r/form/additional_notes" required="false()" type="string"/>
+      <bind calculate="../form/symptoms" nodeset="/r/symptoms_given" type="string"/>
+      <bind calculate="../form/other_symptoms" nodeset="/r/other_symptoms" relevant="selected( /r/form/symptoms , 'others')" type="string"/>
+      <bind calculate="../form/additional_notes" nodeset="/r/additional_notes" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group appearance="field-list" ref="/r/inputs">
+      <label>Patient</label>
+      <input appearance="hidden" ref="/r/inputs/source">
+        <label>Source</label>
+      </input>
+      <input appearance="hidden" ref="/r/inputs/source_id">
+        <label>Source ID</label>
+      </input>
+      <group ref="/r/inputs/contact">
+        <label>Contact</label>
+        <input appearance="db-object" ref="/r/inputs/contact/_id">
+          <label>What is the patient's name?</label>
+          <hint>Select a person from list</hint>
+        </input>
+        <input appearance="hidden" ref="/r/inputs/contact/name">
+          <label>Patient Name</label>
+        </input>
+        <input appearance="hidden" ref="/r/inputs/contact/phone">
+          <label>Phone Number</label>
+        </input>
+      </group>
+    </group>
+    <group appearance="field-list" ref="/r/form">
+      <label>Potential AE</label>
+      <select ref="/r/form/symptoms">
+        <label>What symptoms did the client report?</label>
+        <item>
+          <label>Bleeding</label>
+          <value>bleeding</value>
+        </item>
+        <item>
+          <label>Swelling</label>
+          <value>swelling</value>
+        </item>
+        <item>
+          <label>Pus</label>
+          <value>pus</value>
+        </item>
+        <item>
+          <label>Pain</label>
+          <value>pain</value>
+        </item>
+        <item>
+          <label>Wound Opening</label>
+          <value>wound_opening</value>
+        </item>
+        <item>
+          <label>Rednes</label>
+          <value>rednes</value>
+        </item>
+        <item>
+          <label>Others</label>
+          <value>others</value>
+        </item>
+      </select>
+      <input ref="/r/form/other_symptoms">
+        <label>Describe other symptoms</label>
+      </input>
+      <input appearance="multiline" ref="/r/form/additional_notes">
+        <label>Please add additional notes</label>
+      </input>
+    </group>
+  </h:body>
+</h:html>

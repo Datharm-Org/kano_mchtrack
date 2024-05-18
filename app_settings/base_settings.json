@@ -1,0 +1,340 @@
+{
+  "contact_types": [
+    {
+      "id": "district_hospital",
+      "name_key": "contact.type.district_hospital",
+      "group_key": "contact.type.district_hospital.plural",
+      "create_key": "contact.type.district_hospital.new",
+      "edit_key": "contact.type.place.edit",
+      "icon": "icon-district-hospital",
+      "create_form": "form:contact:district_hospital:create",
+      "edit_form": "form:contact:district_hospital:edit"
+    },
+    {
+      "id": "health_center",
+      "name_key": "contact.type.health_center",
+      "group_key": "contact.type.health_center.plural",
+      "create_key": "contact.type.health_center.new",
+      "edit_key": "contact.type.place.edit",
+      "parents": [
+        "district_hospital"
+      ],
+      "icon": "icon-health-center",
+      "create_form": "form:contact:health_center:create",
+      "edit_form": "form:contact:health_center:edit"
+    },
+    {
+      "id": "chw_area",
+      "name_key": "contact.type.chw_area",
+      "group_key": "contact.type.chw_area.plural",
+      "create_key": "contact.type.chw_area.new",
+      "edit_key": "contact.type.chw_area.edit",
+      "primary_contact_key": "clinic.field.contact",
+      "parents": [
+        "health_center"
+      ],
+      "icon": "icon-chw-area",
+      "create_form": "form:contact:chw_area:create",
+      "edit_form": "form:contact:chw_area:edit"
+    },
+    {
+      "id": "chw",
+      "name_key": "contact.type.chw",
+      "group_key": "contact.type.chw.plural",
+      "create_key": "contact.type.chw.new",
+      "edit_key": "contact.type.chw.edit",
+      "primary_contact_key": "clinic.field.contact",
+      "parents": [
+        "chw_area"
+      ],
+      "icon": "icon-chw",
+      "create_form": "form:contact:chw:create",
+      "edit_form": "form:contact:chw:edit",
+      "person": true
+    },
+    {
+      "id": "clinic",
+      "name_key": "contact.type.clinic",
+      "group_key": "contact.type.clinic.plural",
+      "create_key": "contact.type.clinic.new",
+      "edit_key": "contact.type.place.edit",
+      "parents": [
+        "chw_area"
+      ],
+      "icon": "icon-settlement",
+      "create_form": "form:contact:clinic:create",
+      "edit_form": "form:contact:clinic:edit",
+      "count_visits": true
+    },
+    {
+      "id": "household",
+      "name_key": "contact.type.household",
+      "group_key": "contact.type.household.plural",
+      "create_key": "contact.type.household.new",
+      "edit_key": "contact.type.place.edit",
+      "parents": [
+        "clinic"
+      ],
+      "icon": "icon-household",
+      "create_form": "form:contact:household:create",
+      "edit_form": "form:contact:household:edit",
+      "count_visits": true
+    },
+    {
+      "id": "person",
+      "name_key": "contact.type.person",
+      "group_key": "contact.type.person.plural",
+      "create_key": "contact.type.person.new",
+      "edit_key": "contact.type.person.edit",
+      "primary_contact_key": "clinic.field.contact",
+      "parents": [
+        "household"
+      ],
+      "icon": "icon-people-person",
+      "create_form": "form:contact:person:create",
+      "edit_form": "form:contact:person:edit",
+      "person": true
+    },
+    {
+      "id": "nurse",
+      "name_key": "contact.type.nurse",
+      "group_key": "contact.type.nurse.plural",
+      "create_key": "contact.type.nurse.new",
+      "edit_key": "contact.type.nurse.edit",
+      "primary_contact_key": "clinic.field.contact",
+      "parents": [
+        "district_hospital",
+        "health_center"
+      ],
+      "icon": "medic-person",
+      "create_form": "form:contact:nurse:create",
+      "edit_form": "form:contact:nurse:edit",
+      "person": true
+    }
+  ],
+  "roles": {
+    "data_entry": {
+      "name": "usertype.data-entry"
+    },
+    "admin": {
+      "name": "usertype.admin"
+    },
+    "chw": {
+      "name": "usertype.chw",
+      "offline": true
+    },
+    "nurse": {
+      "name": "usertype.nurse",
+      "offline": true
+    },
+    "chw-supervisor": {
+      "name": "usertype.chw-supervisor"
+    }
+  },
+  "permissions": {
+    "can_create_people": [
+      "admin",
+      "chw",
+      "nurse"
+    ],
+    "can_create_nurse": [
+      "admin"
+    ],
+    "can_create_chw": [
+      "admin"
+    ],
+    "can_create_places": [
+      "admin",
+      "chw",
+      "nurse"
+    ],
+    "can_create_clinic": [
+      "admin"
+    ],
+    "can_create_chw_area": [
+      "admin"
+    ],
+    "can_create_health_center": [
+      "admin"
+    ],
+    "can_create_district_hospital": [
+      "admin"
+    ],
+    "can_create_household": [
+      "chw",
+      "nurse"
+    ],
+    "can_view_analytics_tab": [],
+    "can_view_analytics": [],
+    "can_delete_users": [
+      "admin"
+    ],
+    "can_delete_contacts": [
+      "admin"
+    ],
+    "can_create_users": [
+      "admin"
+    ],
+    "can_create_records": [
+      "admin"
+    ],
+    "can_bulk_delete_reports": [
+      "admin"
+    ],
+    "can_configure": [
+      "admin"
+    ],
+    "can_delete_messages": [],
+    "can_delete_reports": [
+      "admin"
+    ],
+    "can_edit": [
+      "admin",
+      "nurse",
+      "chw"
+    ],
+    "can_edit_profile": [
+      "nurse",
+      "chw"
+    ],
+    "can_edit_verification": [
+      "nurse"
+    ],
+    "can_export_all": [
+      "admin"
+    ],
+    "can_export_contacts": [
+      "admin"
+    ],
+    "can_export_feedback": [
+      "admin"
+    ],
+    "can_export_messages": [
+      "admin"
+    ],
+    "can_update_places": [
+      "admin"
+    ],
+    "can_update_reports": [
+      "admin"
+    ],
+    "can_update_users": [
+      "admin"
+    ],
+    "can_verify_reports": [
+      "nurse"
+    ],
+    "can_view_call_action": [],
+    "can_view_contacts": [
+      "chw",
+      "nurse",
+      "admin"
+    ],
+    "can_view_contacts_tab": [
+      "chw",
+      "admin",
+      "nurse"
+    ],
+    "can_view_message_action": [],
+    "can_view_messages": [],
+    "can_view_messages_tab": [],
+    "can_view_outgoing_messages": [
+      "admin"
+    ],
+    "can_view_reports": [
+      "chw",
+      "nurse",
+      "admin"
+    ],
+    "can_view_reports_tab": [
+      "chw",
+      "nurse",
+      "admin"
+    ],
+    "can_view_tasks": [
+      "chw",
+      "nurse"
+    ],
+    "can_view_tasks_tab": [
+      "chw",
+      "nurse"
+    ],
+    "can_view_tasks_group": [
+      "chw",
+      "nurse"
+    ],
+    "can_view_unallocated_data_records": [
+      "admin",
+      "nurse",
+      "chw"
+    ],
+    "can_view_users": [
+      "admin"
+    ],
+    "can_view_medical_histrory": []
+  },
+  "transitions": {
+    "mark_for_outbound": true
+  },
+  "outbound": {
+    "contact registration and updates": {
+      "destination": {
+        "base_url": "https://textit.com",
+        "auth": {
+          "type": "header",
+          "name": "Authorization",
+          "value_key": "rapidpro.dev"
+        },
+        "path": "/api/v2/flow_starts.json"
+      },
+      "relevant_to": "doc.contact_type === 'person' && doc.phone !==''",
+      "mapping": {
+        "flow": {
+          "expr": "'ed826acf-0024-4d41-87fb-36b8a80f4b32'"
+        },
+        "urns": {
+          "expr": "[ 'tel:' + doc.phone ]",
+          "optional": false
+        },
+        "extra.cht_id": {
+          "expr": "doc._id"
+        },
+        "extra.name": {
+          "expr": "doc.name"
+        },
+        "extra.reported_date": {
+          "expr": "doc.reported_date"
+        }
+      }
+    },
+    "contact start immunization track": {
+      "destination": {
+        "base_url": "https://textit.com",
+        "auth": {
+          "type": "header",
+          "name": "Authorization",
+          "value_key": "rapidpro.dev"
+        },
+        "path": "/api/v2/flow_starts.json"
+      },
+      "relevant_to": "doc.type === 'data_record' && doc.form === 'client_visit' && doc.fields.form.start_track === 'immunization'",
+      "mapping": {
+        "flow": {
+          "expr": "'a7725d77-cced-4b6b-b8cd-13e17c84bf09'"
+        },
+        "contacts": {
+          "expr": "[doc.fields.rapidpro_uuid]",
+          "optional": false
+        },
+        "extra.next_vaccine": {
+          "expr": "doc.fields.r_immunization.r_next_immunization_vaccines",
+          "optional": true
+        },
+        "extra.next_date": {
+          "expr": "doc.fields.r_immunization.r_next_immunization_date",
+          "optional": true
+        }
+      }
+    }
+  }
+}

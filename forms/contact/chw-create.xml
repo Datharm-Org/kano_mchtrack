@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>New Community Health Workers</h:title>
+    <model>
+      <itext>
+        <translation lang="en">
+          <text id="/data/chw/name:label">
+            <value>Names</value>
+          </text>
+          <text id="/data/chw/phone:label">
+            <value>Phone Number</value>
+          </text>
+          <text id="/data/chw/phone_alternate:label">
+            <value>Alternate Phone Number</value>
+          </text>
+        </translation>
+      </itext>
+      <instance>
+        <data delimiter="#" id="contact:chw:create" prefix="J1!contact:chw:create!" version="2023-11-05 22-47">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <user>
+              <contact_id/>
+              <facility_id/>
+              <name/>
+            </user>
+          </inputs>
+          <chw>
+            <parent/>
+            <type>household</type>
+            <name/>
+            <phone/>
+            <phone_alternate/>
+            <meta tag="hidden">
+              <created_by/>
+              <created_by_person_uuid/>
+              <created_by_place_uuid/>
+            </meta>
+          </chw>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </data>
+      </instance>
+      <bind nodeset="/data/inputs" relevant="false()"/>
+      <bind nodeset="/data/inputs/user/contact_id" type="string"/>
+      <bind nodeset="/data/inputs/user/facility_id" type="string"/>
+      <bind nodeset="/data/inputs/user/name" type="string"/>
+      <bind nodeset="/data/chw/parent" type="string"/>
+      <bind nodeset="/data/chw/type" type="string"/>
+      <bind nodeset="/data/chw/name" required="true()" type="string"/>
+      <bind constraint="regex(., &quot;^0\d{10}$&quot;)" jr:constraintMsg="Please enter a valid local number, or example: 07012345678" nodeset="/data/chw/phone" type="string"/>
+      <bind constraint="regex(., &quot;^0\d{10}$&quot;)" jr:constraintMsg="Please enter a valid local number, or example: 07012345678" nodeset="/data/chw/phone_alternate" type="string"/>
+      <bind calculate="../../../inputs/user/name" nodeset="/data/chw/meta/created_by" type="string"/>
+      <bind calculate="../../../inputs/user/contact_id" nodeset="/data/chw/meta/created_by_person_uuid" type="string"/>
+      <bind calculate="../../../inputs/user/facility_id" nodeset="/data/chw/meta/created_by_place_uuid" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/data/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group ref="/data/inputs">
+      <group ref="/data/inputs/user">
+        <input ref="/data/inputs/user/contact_id"/>
+        <input ref="/data/inputs/user/facility_id"/>
+        <input ref="/data/inputs/user/name"/>
+      </group>
+    </group>
+    <group appearance="field-list" ref="/data/chw">
+      <input ref="/data/chw/name">
+        <label ref="jr:itext('/data/chw/name:label')"/>
+      </input>
+      <input ref="/data/chw/phone">
+        <label ref="jr:itext('/data/chw/phone:label')"/>
+      </input>
+      <input ref="/data/chw/phone_alternate">
+        <label ref="jr:itext('/data/chw/phone_alternate:label')"/>
+      </input>
+      <group appearance="hidden" ref="/data/chw/meta"/>
+    </group>
+  </h:body>
+</h:html>

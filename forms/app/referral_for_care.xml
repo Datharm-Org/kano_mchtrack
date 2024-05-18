@@ -1,0 +1,319 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Referral for Care</h:title>
+    <model>
+      <itext>
+        <translation lang="en">
+          <text id="static_instance-referral_reasons-0">
+            <value>Sick newborn</value>
+          </text>
+          <text id="static_instance-referral_reasons-1">
+            <value>Immunization</value>
+          </text>
+          <text id="static_instance-referral_reasons-2">
+            <value>Severe Acute Malnutrition</value>
+          </text>
+          <text id="static_instance-referral_reasons-3">
+            <value>Malaria</value>
+          </text>
+          <text id="static_instance-referral_reasons-4">
+            <value>ANC</value>
+          </text>
+          <text id="static_instance-referral_reasons-5">
+            <value>Delivery</value>
+          </text>
+          <text id="static_instance-referral_reasons-6">
+            <value>PNC</value>
+          </text>
+          <text id="static_instance-referral_reasons-7">
+            <value>Others</value>
+          </text>
+          <text id="static_instance-referral_reasons-8">
+            <value>Diarrhea</value>
+          </text>
+          <text id="static_instance-symptoms-0">
+            <value>Chest is drawing</value>
+          </text>
+          <text id="static_instance-symptoms-1">
+            <value>Convulsion</value>
+          </text>
+          <text id="static_instance-symptoms-10">
+            <value>Vaginal bleeding</value>
+          </text>
+          <text id="static_instance-symptoms-11">
+            <value>Body swelling</value>
+          </text>
+          <text id="static_instance-symptoms-12">
+            <value>Drainage of fluid from vagina</value>
+          </text>
+          <text id="static_instance-symptoms-13">
+            <value>Onset of labor before 37 weeks</value>
+          </text>
+          <text id="static_instance-symptoms-14">
+            <value>Other</value>
+          </text>
+          <text id="static_instance-symptoms-2">
+            <value>Vomiting everything</value>
+          </text>
+          <text id="static_instance-symptoms-3">
+            <value>Unable to drink or breastfeed</value>
+          </text>
+          <text id="static_instance-symptoms-4">
+            <value>Unusually sleepy or unconscious</value>
+          </text>
+          <text id="static_instance-symptoms-5">
+            <value>Blood in stool</value>
+          </text>
+          <text id="static_instance-symptoms-6">
+            <value>Fever lasting more than 7 days</value>
+          </text>
+          <text id="static_instance-symptoms-7">
+            <value>Diarrhea lasting more than 14 days</value>
+          </text>
+          <text id="static_instance-symptoms-8">
+            <value>Cough lasting more than 14 days</value>
+          </text>
+          <text id="static_instance-symptoms-9">
+            <value>Abdominal Pain</value>
+          </text>
+          <text id="static_instance-yes_no-0">
+            <value>Yes</value>
+          </text>
+          <text id="static_instance-yes_no-1">
+            <value>No</value>
+          </text>
+        </translation>
+      </itext>
+      <instance>
+        <r delimiter="#" id="referral_for_care" prefix="J1!referral_for_care!" version="2020-03-06 00:00:00">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <source>user</source>
+            <source_id/>
+            <contact>
+              <_id/>
+              <name/>
+              <phone/>
+            </contact>
+          </inputs>
+          <patient_name/>
+          <patient_id tag="hidden"/>
+          <phone/>
+          <form tag="hidden">
+            <referral_reasons/>
+            <visit_due_date/>
+            <additional_notes/>
+          </form>
+          <reasons/>
+          <additional_notes/>
+          <visit_due_date/>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </r>
+      </instance>
+      <instance id="contact-summary"/>
+      <instance id="symptoms">
+        <root>
+          <item>
+            <itextId>static_instance-symptoms-0</itextId>
+            <filter>child</filter>
+            <name>chest_drawing</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-1</itextId>
+            <filter>child</filter>
+            <name>convulsion</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-2</itextId>
+            <filter>both</filter>
+            <name>vomiting</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-3</itextId>
+            <filter>child</filter>
+            <name>cant_drink_brestfeed</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-4</itextId>
+            <filter>both</filter>
+            <name>sleepiness_unconscious</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-5</itextId>
+            <filter>both</filter>
+            <name>blood_in_stool</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-6</itextId>
+            <filter>both</filter>
+            <name>fever</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-7</itextId>
+            <filter>both</filter>
+            <name>diarrhea</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-8</itextId>
+            <filter>both</filter>
+            <name>cough</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-9</itextId>
+            <filter>both</filter>
+            <name>abdominal_pain</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-10</itextId>
+            <filter>woman</filter>
+            <name>vaginal_bleeding</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-11</itextId>
+            <filter>woman</filter>
+            <name>body_swelling</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-12</itextId>
+            <filter>woman</filter>
+            <name>drainage_of_fluid</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-13</itextId>
+            <filter>woman</filter>
+            <name>labor_before_37_weeks</name>
+          </item>
+          <item>
+            <itextId>static_instance-symptoms-14</itextId>
+            <name>other</name>
+          </item>
+        </root>
+      </instance>
+      <instance id="referral_reasons">
+        <root>
+          <item>
+            <itextId>static_instance-referral_reasons-0</itextId>
+            <filter>child</filter>
+            <name>sick newborn</name>
+          </item>
+          <item>
+            <itextId>static_instance-referral_reasons-1</itextId>
+            <filter>child</filter>
+            <name>immunization</name>
+          </item>
+          <item>
+            <itextId>static_instance-referral_reasons-2</itextId>
+            <filter>child</filter>
+            <name>severe acute malnutrition</name>
+          </item>
+          <item>
+            <itextId>static_instance-referral_reasons-3</itextId>
+            <filter>both</filter>
+            <name>malaria</name>
+          </item>
+          <item>
+            <itextId>static_instance-referral_reasons-4</itextId>
+            <filter>woman</filter>
+            <name>anc</name>
+          </item>
+          <item>
+            <itextId>static_instance-referral_reasons-5</itextId>
+            <filter>woman</filter>
+            <name>delivery</name>
+          </item>
+          <item>
+            <itextId>static_instance-referral_reasons-6</itextId>
+            <filter>woman</filter>
+            <name>pnc</name>
+          </item>
+          <item>
+            <itextId>static_instance-referral_reasons-7</itextId>
+            <name>others</name>
+          </item>
+          <item>
+            <itextId>static_instance-referral_reasons-8</itextId>
+            <filter>child</filter>
+            <name>diarrhea</name>
+          </item>
+        </root>
+      </instance>
+      <instance id="yes_no">
+        <root>
+          <item>
+            <itextId>static_instance-yes_no-0</itextId>
+            <name>yes</name>
+          </item>
+          <item>
+            <itextId>static_instance-yes_no-1</itextId>
+            <name>no</name>
+          </item>
+        </root>
+      </instance>
+      <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
+      <bind nodeset="/r/inputs/source" type="string"/>
+      <bind nodeset="/r/inputs/source_id" type="string"/>
+      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/name" type="string"/>
+      <bind nodeset="/r/inputs/contact/phone" type="string"/>
+      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
+      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
+      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
+      <bind nodeset="/r/form/referral_reasons" type="select1"/>
+      <bind nodeset="/r/form/visit_due_date" required="true()" type="date"/>
+      <bind nodeset="/r/form/additional_notes" required="false()" type="string"/>
+      <bind calculate="../form/referral_reasons" nodeset="/r/reasons" type="string"/>
+      <bind calculate="../form/additional_notes" nodeset="/r/additional_notes" type="string"/>
+      <bind calculate="../form/visit_due_date" nodeset="/r/visit_due_date" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group appearance="field-list" ref="/r/inputs">
+      <label>Patient</label>
+      <input appearance="hidden" ref="/r/inputs/source">
+        <label>Source</label>
+      </input>
+      <input appearance="hidden" ref="/r/inputs/source_id">
+        <label>Source ID</label>
+      </input>
+      <group ref="/r/inputs/contact">
+        <label>Contact</label>
+        <input appearance="db-object" ref="/r/inputs/contact/_id">
+          <label>What is the patient's name?</label>
+          <hint>Select a person from list</hint>
+        </input>
+        <input appearance="hidden" ref="/r/inputs/contact/name">
+          <label>Patient Name</label>
+        </input>
+        <input appearance="hidden" ref="/r/inputs/contact/phone">
+          <label>Phone Number</label>
+        </input>
+      </group>
+    </group>
+    <group appearance="field-list" ref="/r/form">
+      <select1 ref="/r/form/referral_reasons">
+        <label>Reasons for referral</label>
+        <itemset nodeset="instance('referral_reasons')/root/item[instance('contact-summary')/context/client_type = filter or filter = 'both']">
+          <value ref="name"/>
+          <label ref="jr:itext(itextId)"/>
+        </itemset>
+      </select1>
+      <input ref="/r/form/visit_due_date">
+        <label>Visit due date</label>
+      </input>
+      <input ref="/r/form/additional_notes">
+        <label>Please add additional notes</label>
+      </input>
+    </group>
+  </h:body>
+</h:html>

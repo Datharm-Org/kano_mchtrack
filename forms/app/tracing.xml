@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Trace Person</h:title>
+    <model>
+      <instance>
+        <r delimiter="#" id="tracing" prefix="J1!tracing!" version="24/5/2023">
+          <inputs>
+            <meta>
+              <location>
+                <lat/>
+                <long/>
+                <error/>
+                <message/>
+              </location>
+            </meta>
+            <source>user</source>
+            <source_id/>
+            <task_shows_on_day/>
+            <contact>
+              <_id/>
+              <name/>
+              <phone/>
+            </contact>
+          </inputs>
+          <patient_name/>
+          <patient_id tag="hidden"/>
+          <phone/>
+          <form tag="hidden">
+            <n_header tag="hidden"/>
+            <tracing_outcome/>
+            <additional_notes/>
+            <default_reasons/>
+            <trace_method/>
+          </form>
+          <client_traced/>
+          <method/>
+          <reasons/>
+          <meta tag="hidden">
+            <instanceID/>
+          </meta>
+        </r>
+      </instance>
+      <instance id="contact-summary"/>
+      <bind nodeset="/r/inputs" relevant="./source = 'user'"/>
+      <bind nodeset="/r/inputs/source" type="string"/>
+      <bind nodeset="/r/inputs/source_id" type="string"/>
+      <bind nodeset="/r/inputs/task_shows_on_day" type="string"/>
+      <bind nodeset="/r/inputs/contact/_id" required="true()" type="db:person"/>
+      <bind nodeset="/r/inputs/contact/name" type="string"/>
+      <bind nodeset="/r/inputs/contact/phone" type="string"/>
+      <bind calculate="../inputs/contact/name" nodeset="/r/patient_name" type="string"/>
+      <bind calculate="../inputs/contact/_id" nodeset="/r/patient_id" required="true()" type="string"/>
+      <bind calculate="../inputs/contact/phone" nodeset="/r/phone" type="string"/>
+      <bind nodeset="/r/form/n_header" readonly="true()" type="string"/>
+      <bind nodeset="/r/form/tracing_outcome" required="true()" type="select1"/>
+      <bind nodeset="/r/form/additional_notes" relevant="selected( /r/form/tracing_outcome , 'no')" type="string"/>
+      <bind nodeset="/r/form/default_reasons" relevant="selected( /r/form/tracing_outcome , 'yes_ok')" type="select1"/>
+      <bind nodeset="/r/form/trace_method" relevant="not(selected( /r/form/tracing_outcome , 'not_traced'))" required="true()" type="select1"/>
+      <bind calculate="if(
+  /r/form/tracing_outcome = 'yes_not_found',
+ &quot;Client traced and not found&quot;,
+ if(
+  /r/form/tracing_outcome ='yes_ok', 
+ &quot;Client successfully traced and reports no concerns&quot;, 
+ if(  /r/form/tracing_outcome ='yes_off_network_care', &quot;Client was seen at another facility &quot;, &quot;Client not traced (LTFU)&quot;)
+ )
+)" nodeset="/r/client_traced" type="string"/>
+      <bind calculate="if( /r/form/trace_method ='sms_phone', &quot;Traced by SMS/Phone &quot;, if( /r/form/trace_method =&quot;home_visit&quot;, &quot;Traced by home visit&quot;, &quot;&quot;))" nodeset="/r/method" type="string"/>
+      <bind calculate=" /r/form/default_reasons " nodeset="/r/reasons" type="string"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/r/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body class="pages">
+    <group appearance="field-list" ref="/r/inputs">
+      <label>Patient</label>
+      <input appearance="hidden" ref="/r/inputs/source">
+        <label>Source</label>
+      </input>
+      <input appearance="hidden" ref="/r/inputs/source_id">
+        <label>Source ID</label>
+      </input>
+      <group ref="/r/inputs/contact">
+        <label>Contact</label>
+        <input appearance="db-object" ref="/r/inputs/contact/_id">
+          <label>What is the patient's name?</label>
+          <hint>Select a person from list</hint>
+        </input>
+        <input appearance="hidden" ref="/r/inputs/contact/name">
+          <label>Patient Name</label>
+        </input>
+        <input appearance="hidden" ref="/r/inputs/contact/phone">
+          <label>Phone Number</label>
+        </input>
+      </group>
+    </group>
+    <group appearance="field-list" ref="/r/form">
+      <label></label>
+      <input ref="/r/form/n_header">
+        <label>&lt;h4 style="color: #337ab7;"&gt;Complete this task to demonstrate follow-up after no contact or after incomplete referral to care for minor and adult clients. 
+This form should appear on the persons profile (As an action form) as well and if completed, it should clear the tracing task
+&lt;/h4&gt;</label>
+      </input>
+      <select1 ref="/r/form/tracing_outcome">
+        <label>What are the outcomes of the tracing?</label>
+        <item>
+          <label>Client successfully traced and reports no concerns</label>
+          <value>yes_ok</value>
+        </item>
+        <item>
+          <label>Client traced and not found</label>
+          <value>yes_not_found</value>
+        </item>
+        <item>
+          <label>Client was seen at another facility</label>
+          <value>yes_off_network_care</value>
+        </item>
+        <item>
+          <label>Client not traced (LTFU)</label>
+          <value>not_traced</value>
+        </item>
+      </select1>
+      <input ref="/r/form/additional_notes">
+        <label>Please add additional notes</label>
+      </input>
+      <select1 ref="/r/form/default_reasons">
+        <label>Reason for defaulting</label>
+        <item>
+          <label>Ignorance</label>
+          <value>Ignorance</value>
+        </item>
+        <item>
+          <label>Lack of adequate Financial Resources</label>
+          <value>Lack of adequate Financial Resources</value>
+        </item>
+        <item>
+          <label>Lack of adequate means of Transportation</label>
+          <value>Lack of adequate means of Transportation</value>
+        </item>
+        <item>
+          <label>Reported a potential adverse effect</label>
+          <value>Reported potential adverse effect</value>
+        </item>
+        <item>
+          <label>Uncooperative Husbands</label>
+          <value>Uncooperative Husbands</value>
+        </item>
+        <item>
+          <label>Poor Attitude of Health Providers</label>
+          <value>Poor Attitude of Health Providers</value>
+        </item>
+        <item>
+          <label>Need an accompany/Can't go alone.</label>
+          <value>Need an accompany/Can't go alone.</value>
+        </item>
+        <item>
+          <label>Healthcare Provider is not of the same sex</label>
+          <value>Healthcare Provider is not of the same sex</value>
+        </item>
+        <item>
+          <label>Obtaining permission from parent or guardian</label>
+          <value>Obtaining permission from parent or guardian</value>
+        </item>
+      </select1>
+      <select1 ref="/r/form/trace_method">
+        <label>How was the client traced?</label>
+        <item>
+          <label>Traced by SMS/Phone</label>
+          <value>sms_phone</value>
+        </item>
+        <item>
+          <label>Traced by home visit</label>
+          <value>home_visit</value>
+        </item>
+      </select1>
+    </group>
+  </h:body>
+</h:html>

@@ -1,0 +1,43 @@
+{
+  "name": "MCHTRACK",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "eslint": "npx eslint {,**}/*.js",
+    "test": "npm run eslint && npm run compile-forms && npm run compile-app-settings && npm run unit-test",
+    "compile-app-settings": "npx cht compile-app-settings",
+    "compile-forms": "npx cht convert-app-forms convert-contact-forms",
+    "test-forms": "npm run eslint && TZ=Africa/Lilongwe mocha --reporter spec test/forms/**/*.spec.js --timeout 10000",
+    "test-tasks": "npm run eslint && TZ=Africa/Lilongwe mocha --reporter progress test/tasks/*.spec.js --timeout 10000",
+    "test-targets": "npm run eslint && TZ=Africa/Lilongwe mocha --reporter progress test/targets/*.spec.js --timeout 10000",
+    "test-contact-summary": "npm run eslint && TZ=Africa/Lilongwe mocha --reporter progress test/contact-summary/*.spec.js --timeout 10000",
+    "unit-test": "TZ=Africa/Lilongwe mocha --recursive --reporter spec test --timeout 20000",
+    "explore": "node ../../cht-conf-test-harness/project-explorer/build-assets.js --path=. && cd ../../cht-conf-test-harness/project-explorer && npx webpack && google-chrome ./project-explorer.html"
+  },
+  "devDependencies": {
+    "@medic/eslint-config": "^1.1.0",
+    "chai": "^4.3.7",
+    "chai-exclude": "^1.0.12",
+    "chai-like": "^1.1.1",
+    "chai-things": "^0.2.0",
+    "cht-conf": "^3.15.2",
+    "cht-conf-test-harness": "^2.4.2",
+    "eslint": "^8.29.0",
+    "eslint-plugin-json": "^2.0.1",
+    "lodash": "^4.17.21",
+    "luxon": "^3.1.1",
+    "mocha": "^10.2.0",
+    "moment": "^2.29.4",
+    "rewire": "^6.0.0",
+    "sinon": "^11.1.2"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cht-nootils": "^4.2.0",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.0.3",
+    "eslint-config-react-app": "^7.0.1",
+    "joi": "^17.6.0",
+    "nano": "^10.0.0"
+  }
+}

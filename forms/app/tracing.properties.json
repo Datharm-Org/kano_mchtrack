@@ -1,0 +1,9 @@
+{
+  "icon": "icon-follow-up",
+  "title": "Defaulter Tracking",
+  "context": {
+    "person": true,
+    "place": false,
+    "expression": "!contact.muted && contact.type === 'person' && user.contact_type === 'chw'"
+  }
+}
